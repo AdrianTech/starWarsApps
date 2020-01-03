@@ -15,7 +15,6 @@ const Main = (): JSX.Element => {
     chooseArr,
     handleArrays
   } = React.useContext(StarWars);
-  console.log(characters);
   return (
     <div className="wrapper">
       {chooseArr ? (
