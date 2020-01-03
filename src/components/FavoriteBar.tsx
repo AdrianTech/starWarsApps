@@ -4,7 +4,6 @@ import FavoriteModal from "./FavouriteModal";
 const Favorites = () => {
   const { favorites, showDetailsModal } = React.useContext(StarWars);
   const [modal, showModal] = React.useState<boolean>(false);
-  console.log(favorites);
   return (
     <>
       {modal && !showDetailsModal && <FavoriteModal showModal={showModal} />}
