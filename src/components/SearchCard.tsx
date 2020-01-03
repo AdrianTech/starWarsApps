@@ -1,5 +1,6 @@
 import React from "react";
 import { StarWars } from "../context/context";
+import image from "../assets/starWars.jpg";
 import { IChar } from "../types/types";
 const Card = (props: { char: IChar; index: number }): JSX.Element => {
   const { addFavoriteCharacters, showDetailsModal } = React.useContext(
@@ -20,7 +21,7 @@ const Card = (props: { char: IChar; index: number }): JSX.Element => {
       >
         <div className="front" style={{ transform: fStyle }}>
           <div className="img-box">
-            {/* <img src={image} alt="Star Wars" /> */}
+            <img src={image} alt="Star Wars" />
           </div>
           <h4>{props.char.name}</h4>
           <button
