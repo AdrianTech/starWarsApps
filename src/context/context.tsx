@@ -68,7 +68,7 @@ const StarWarsContextProvider = (props: any) => {
     if (showDetailsModal) return;
     e.stopPropagation();
     if (favorites.find(item => item.name === char.name)) {
-      displayInfo("You've already added this character");
+      return displayInfo("You've already added this character");
     }
     if (!characters.find(item => item.name === char.name)) {
       const addChar = [...characters, { ...char }];
