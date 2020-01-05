@@ -73,7 +73,7 @@ const StarWarsContextProvider = (props: any) => {
       });
     }
     if (!characters.find(item => item.name === char.name)) {
-      const addChar = [...characters, { ...char }];
+      const addChar = [{ ...char }, ...characters];
       saveData(addChar);
     }
     const updateArr = [...favorites, { ...char }];
