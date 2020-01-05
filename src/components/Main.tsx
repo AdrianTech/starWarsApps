@@ -7,8 +7,7 @@ import ShowDetails from "./showDetails";
 const Main = (): JSX.Element => {
   const {
     characters,
-    message,
-    infoState,
+    info,
     showDetailsModal,
     handleInput,
     getUser,
@@ -33,7 +32,7 @@ const Main = (): JSX.Element => {
         </div>
       )}
       {showDetailsModal && <ShowDetails />}
-      {infoState && <ShowInfo message={message} />}
+      <ShowInfo info={info} />
       <Favorites />
       {characters && <ShowHeroes />}
     </div>

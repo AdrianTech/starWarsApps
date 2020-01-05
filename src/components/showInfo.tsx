@@ -1,5 +1,9 @@
 import React from "react";
-const ShowInfo = ({ message }): JSX.Element => {
-  return <div className="showInfo">{message}</div>;
+const ShowInfo = ({ info }): JSX.Element => {
+  let styles = "showInfo";
+  if (info.state) {
+    styles += " modalActive";
+  }
+  return <div className={styles}>{info.text}</div>;
 };
 export default ShowInfo;

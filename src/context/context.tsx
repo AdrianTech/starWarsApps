@@ -7,9 +7,8 @@ const StarWarsContextProvider = (props: any) => {
   const [characters, saveData] = React.useState<IChar[]>([]);
   const [favorites, handleWithFavoriteList] = React.useState<IChar[]>([]);
   const [page, showNextPage] = React.useState<number>(1);
-  const [message, showInfo] = React.useState<string>("");
+  const [info, showInfo] = React.useState<object>({});
   const [showDetailsID, handleShowDetailsID] = React.useState(null);
-  const [infoState, setInfoState] = React.useState<boolean>(false);
   const [showDetailsModal, detailsModal] = React.useState<boolean>(false);
   const [value, handleValue] = React.useState<string>("");
   const [chooseArr, handleArrays] = React.useState<boolean>(false);
@@ -32,7 +31,7 @@ const StarWarsContextProvider = (props: any) => {
         );
         saveData(filtered);
       } catch (err) {
-        showInfo("Something went wrong. Try again");
+        showInfo({ text: "Something went wrong. Try again", state: true });
       }
     };
     getData();
@@ -40,17 +39,17 @@ const StarWarsContextProvider = (props: any) => {
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
     handleValue(e.target.value);
   };
-  const getUser = async (): Promise<IChar> => {
+  const getUser = async (): Promise<IChar[]> => {
     let newArr: IChar[];
     const findCharInArray = characters.find(
       item => item.name.toLowerCase() === value.toLowerCase()
     );
+    console.log(findCharInArray);
     if (findCharInArray !== undefined) {
       newArr = [{ ...findCharInArray }];
     }
     displaySearchArray(newArr);
     if (findCharInArray) return;
-    else showInfo("Not found");
     try {
       const res = await fetch(`https://swapi.co/api/people/?search=${value}`, {
         headers: {
@@ -61,21 +60,24 @@ const StarWarsContextProvider = (props: any) => {
       const newArr = [...data.results];
       displaySearchArray(newArr);
     } catch (err) {
-      showInfo("Something went wrong. Try again");
+      showInfo({ Text: "Something went wrong. Try again", state: true });
     }
   };
   const addFavoriteCharacters = (e: Event, char: IChar): void => {
     if (showDetailsModal) return;
     e.stopPropagation();
     if (favorites.find(item => item.name === char.name)) {
-      return displayInfo("You've already added this character");
+      return displayInfo({
+        text: "You've already added this character",
+        state: true
+      });
     }
     if (!characters.find(item => item.name === char.name)) {
       const addChar = [...characters, { ...char }];
       saveData(addChar);
     }
     const updateArr = [...favorites, { ...char }];
-    displayInfo("Added this character");
+    displayInfo({ text: "Added this character", state: true });
     handleWithFavoriteList(updateArr);
   };
   const removeFromFavoriteList = (index: number): void => {
@@ -83,12 +85,11 @@ const StarWarsContextProvider = (props: any) => {
     updateArr.splice(index, 1);
     handleWithFavoriteList(updateArr);
   };
-  const displayInfo = (info: string): void => {
+  const displayInfo = (info: any): void => {
     showInfo(info);
-    setInfoState(true);
     setTimeout(() => {
-      setInfoState(false);
-    }, 1980);
+      showInfo({ text: "", state: false });
+    }, 1700);
   };
   const showDetails = (id: string): void => {
     handleShowDetailsID(id);
@@ -104,8 +105,7 @@ const StarWarsContextProvider = (props: any) => {
         favorites,
         removeFromFavoriteList,
         isNextPage,
-        message,
-        infoState,
+        info,
         showDetailsID,
         showDetails,
         showDetailsModal,
