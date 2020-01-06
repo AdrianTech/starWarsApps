@@ -2,7 +2,7 @@
 
 ## Instructions for use
 
-- Clone this project from github pepository
+- Clone this project from github repository
 
 - Run "npm install" to install all necessary dependencies
 
