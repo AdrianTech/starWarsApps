@@ -1,8 +1,9 @@
 import React from "react";
 import { StarWars } from "../context/context";
 import image from "../assets/starWars.jpg";
-import { IChar } from "../types/types";
-const Card = (props: { char: IChar; index: number }): JSX.Element => {
+import { ICard } from "../types/types";
+
+const Card: React.FC<ICard> = props => {
   const { addFavoriteCharacters, showDetailsModal } = React.useContext(
     StarWars
   );
