@@ -17,7 +17,7 @@ const StarWarsContextProvider = (props: any) => {
   React.useEffect(() => {
     const getData = async () => {
       try {
-        const res = await fetch(`https://swapi.co/api/people/?page=${page}`, {
+        const res = await fetch(`https://swapi.dev/api/people/?page=${page}`, {
           headers: {
             "Content-type": "Application/json"
           }
@@ -26,12 +26,10 @@ const StarWarsContextProvider = (props: any) => {
         isNextPage = data.next;
         const concatArr = [...characters, ...data.results];
         let i = {};
-        const filtered = concatArr.filter(
-          obj => !i[obj.name] && (i[obj.name] = true)
-        );
+        const filtered = concatArr.filter(obj => !i[obj.name] && (i[obj.name] = true));
         saveData(filtered);
       } catch (err) {
-        showInfo({ text: "Something went wrong. Try again", state: true });
+        displayInfo({ text: "Something went wrong. Try again", state: true });
       }
     };
     getData();
@@ -41,17 +39,14 @@ const StarWarsContextProvider = (props: any) => {
   };
   const getUser = async (): Promise<IChar[]> => {
     let newArr: IChar[];
-    const findCharInArray = characters.find(
-      item => item.name.toLowerCase() === value.toLowerCase()
-    );
-    console.log(findCharInArray);
+    const findCharInArray = characters.find(item => item.name.toLowerCase() === value.toLowerCase());
     if (findCharInArray !== undefined) {
       newArr = [{ ...findCharInArray }];
     }
     displaySearchArray(newArr);
     if (findCharInArray) return;
     try {
-      const res = await fetch(`https://swapi.co/api/people/?search=${value}`, {
+      const res = await fetch(`https://swapi.dev/api/people/?search=${value}`, {
         headers: {
           "Content-type": "Application/json"
         }
